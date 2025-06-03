@@ -149,9 +149,3 @@ contract Blockjack {
         }
     }
 }
-
-contract TestableBlockjack is Blockjack {
-    function plantDeck(uint8[] memory deck) public {
-        _games[msg.sender].deck = deck;
-    }
-}
