@@ -3,7 +3,7 @@ import { getInstance } from '../../fhevmjs';
 import { Eip1193Provider, Provider, ZeroAddress } from 'ethers';
 import { ethers } from 'ethers';
 
-import { reencryptEuint64 } from '../../../../hardhat/test/reencrypt.ts';
+import { reencryptEuint64 } from '../../../../backend/test/reencrypt.ts';
 
 const toHexString = (bytes: Uint8Array) =>
   '0x' +
@@ -41,24 +41,24 @@ export const Devnet = ({
     const loadData = async () => {
       try {
         // Conditional import based on MOCKED environment variable
-        let MyConfidentialERC20;
+        let Blockjack;
         if (!import.meta.env.MOCKED) {
-          MyConfidentialERC20 = await import(
-            '@deployments/sepolia/MyConfidentialERC20.json'
+          Blockjack = await import(
+            '@deployments/sepolia/Blockjack.json'
           );
           console.log(
-            `Using ${MyConfidentialERC20.address} for the token address on Sepolia`,
+            `Using ${Blockjack.address} for the token address on Sepolia`,
           );
         } else {
-          MyConfidentialERC20 = await import(
-            '@deployments/localhost/MyConfidentialERC20.json'
+          Blockjack = await import(
+            '@deployments/localhost/Blockjack.json'
           );
           console.log(
-            `Using ${MyConfidentialERC20.address} for the token address on Hardhat Local Node`,
+            `Using ${Blockjack.address} for the token address on Hardhat Local Node`,
           );
         }
 
-        setContractAddress(MyConfidentialERC20.address);
+        setContractAddress(Blockjack.address);
       } catch (error) {
         console.error(
           'Error loading data - you probably forgot to deploy the token contract before running the front-end server:',
